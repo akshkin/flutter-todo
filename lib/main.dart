@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
                 backgroundColor: Color.fromARGB(255, 27, 148, 176)),
-            appBarTheme: const AppBarTheme(centerTitle: true)));
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              backgroundColor: Color.fromARGB(255, 27, 148, 176),
+              foregroundColor: Colors.white,
+            )));
   }
 }
