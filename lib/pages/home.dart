@@ -26,16 +26,28 @@ class MyHomePage extends ConsumerWidget {
           itemCount: activeTodos.length + 1,
           itemBuilder: (context, index) {
             if (activeTodos.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.fromLTRB(8, 30, 8, 0),
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
                 child: Center(
-                  child: Text(
-                      "No active todos. Add new todo using the button below"),
-                ),
+                    child: Column(
+                  children: [
+                    const Text(
+                        "No active todos. Add new todo using the button below"),
+                    completedTodos.isNotEmpty
+                        ? TextButton(
+                            onPressed: () => Navigator.of(context).push(
+                                PageTransition(
+                                    type: PageTransitionType.leftToRight,
+                                    duration: const Duration(milliseconds: 400),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 400),
+                                    child: const CompletedTodos())),
+                            child: const Text("Completed todos"))
+                        : Container()
+                  ],
+                )),
               );
-            }
-
-            if (index == activeTodos.length) {
+            } else if (index == activeTodos.length) {
               if (completedTodos.isEmpty) {
                 return Container();
               } else {
@@ -58,7 +70,7 @@ class MyHomePage extends ConsumerWidget {
                       onPressed: (context) {
                         ref
                             .watch(todoProvider.notifier)
-                            .deleteTodo(todos[index].todoId);
+                            .deleteTodo(activeTodos[index].todoId);
                       },
                       backgroundColor: Colors.red,
                       borderRadius: BorderRadius.circular(10),
@@ -71,7 +83,7 @@ class MyHomePage extends ConsumerWidget {
                       onPressed: (context) {
                         ref
                             .watch(todoProvider.notifier)
-                            .completedTodo(todos[index].todoId);
+                            .completedTodo(activeTodos[index].todoId);
                       },
                       backgroundColor: Colors.green,
                       borderRadius: BorderRadius.circular(10),
