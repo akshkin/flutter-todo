@@ -12,7 +12,8 @@ class AddTodo extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(title: const Text("Add todo")),
         body: Center(
-            child: Column(children: [
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(

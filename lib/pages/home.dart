@@ -24,6 +24,16 @@ class MyHomePage extends ConsumerWidget {
       body: ListView.builder(
           itemCount: activeTodos.length + 1,
           itemBuilder: (context, index) {
+            if (activeTodos.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.fromLTRB(8, 30, 8, 0),
+                child: Center(
+                  child: Text(
+                      "No active todos. Add new todo using the button below"),
+                ),
+              );
+            }
+
             if (index == activeTodos.length) {
               if (completedTodos.isEmpty) {
                 return Container();
@@ -41,7 +51,9 @@ class MyHomePage extends ConsumerWidget {
                       ActionPane(motion: const ScrollMotion(), children: [
                     SlidableAction(
                       onPressed: (context) {
-                        ref.watch(todoProvider.notifier).deleteTodo(index);
+                        ref
+                            .watch(todoProvider.notifier)
+                            .deleteTodo(todos[index].todoId);
                       },
                       backgroundColor: Colors.red,
                       borderRadius: BorderRadius.circular(10),
@@ -52,16 +64,22 @@ class MyHomePage extends ConsumerWidget {
                       ActionPane(motion: const ScrollMotion(), children: [
                     SlidableAction(
                       onPressed: (context) {
-                        ref.watch(todoProvider.notifier).completedTodo(index);
+                        ref
+                            .watch(todoProvider.notifier)
+                            .completedTodo(todos[index].todoId);
                       },
                       backgroundColor: Colors.green,
                       borderRadius: BorderRadius.circular(10),
-                      icon: todos[index].completed
-                          ? Icons.check_circle
-                          : Icons.check_box_outline_blank,
+                      icon: Icons.check_box_outline_blank,
                     )
                   ]),
-                  child: ListTile(title: Text(activeTodos[index].content)));
+                  child: Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 251, 219, 247),
+                          borderRadius: BorderRadius.circular(10)),
+                      child:
+                          ListTile(title: Text(activeTodos[index].content))));
             }
             // }
           }),
