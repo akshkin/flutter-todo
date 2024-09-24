@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/pages/add.dart';
 import 'package:todo/pages/completed.dart';
@@ -41,8 +42,12 @@ class MyHomePage extends ConsumerWidget {
                 return Center(
                     child: TextButton(
                         onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const CompletedTodos())),
+                            PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: const Duration(milliseconds: 400),
+                                reverseDuration:
+                                    const Duration(milliseconds: 400),
+                                child: const CompletedTodos())),
                         child: const Text("Completed todos")));
               }
             } else {
@@ -85,8 +90,11 @@ class MyHomePage extends ConsumerWidget {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (content) => const AddTodo()));
+          Navigator.of(context).push(PageTransition(
+              type: PageTransitionType.bottomToTop,
+              duration: const Duration(milliseconds: 400),
+              reverseDuration: const Duration(milliseconds: 400),
+              child: const AddTodo()));
         },
         tooltip: 'Increment',
         foregroundColor: Colors.white,
