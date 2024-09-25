@@ -21,8 +21,9 @@ class CompletedTodos extends ConsumerWidget {
           itemCount: completedTodos.length,
           itemBuilder: (context, index) {
             return Slidable(
-                startActionPane:
-                    ActionPane(motion: const ScrollMotion(), children: [
+              startActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
                   SlidableAction(
                     onPressed: (context) {
                       ref
@@ -32,15 +33,20 @@ class CompletedTodos extends ConsumerWidget {
                     backgroundColor: Colors.red,
                     borderRadius: BorderRadius.circular(10),
                     icon: Icons.delete,
-                  )
-                ]),
-                child: Container(
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 251, 219, 247),
-                        borderRadius: BorderRadius.circular(10)),
-                    child:
-                        ListTile(title: Text(completedTodos[index].content))));
+                  ),
+                ],
+              ),
+              child: Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 251, 219, 247),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  title: Text(completedTodos[index].content),
+                ),
+              ),
+            );
           }),
     );
   }

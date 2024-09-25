@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/pages/add.dart';
 import 'package:todo/pages/completed.dart';
@@ -25,68 +26,100 @@ class MyHomePage extends ConsumerWidget {
           itemCount: activeTodos.length + 1,
           itemBuilder: (context, index) {
             if (activeTodos.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.fromLTRB(8, 30, 8, 0),
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
                 child: Center(
-                  child: Text(
-                      "No active todos. Add new todo using the button below"),
+                  child: Column(
+                    children: [
+                      const Text(
+                          "No active todos. Add new todo using the button below"),
+                      completedTodos.isNotEmpty
+                          ? TextButton(
+                              onPressed: () => Navigator.of(context).push(
+                                PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  duration: const Duration(milliseconds: 400),
+                                  reverseDuration:
+                                      const Duration(milliseconds: 400),
+                                  child: const CompletedTodos(),
+                                ),
+                              ),
+                              child: const Text("Completed todos"),
+                            )
+                          : Container()
+                    ],
+                  ),
                 ),
               );
-            }
-
-            if (index == activeTodos.length) {
+            } else if (index == activeTodos.length) {
               if (completedTodos.isEmpty) {
                 return Container();
               } else {
                 return Center(
-                    child: TextButton(
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const CompletedTodos())),
-                        child: const Text("Completed todos")));
+                  child: TextButton(
+                    onPressed: () => Navigator.of(context).push(
+                      PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: const Duration(milliseconds: 400),
+                          reverseDuration: const Duration(milliseconds: 400),
+                          child: const CompletedTodos()),
+                    ),
+                    child: const Text("Completed todos"),
+                  ),
+                );
               }
             } else {
               return Slidable(
-                  startActionPane:
-                      ActionPane(motion: const ScrollMotion(), children: [
+                startActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  children: [
                     SlidableAction(
                       onPressed: (context) {
                         ref
                             .watch(todoProvider.notifier)
-                            .deleteTodo(todos[index].todoId);
+                            .deleteTodo(activeTodos[index].todoId);
                       },
                       backgroundColor: Colors.red,
                       borderRadius: BorderRadius.circular(10),
                       icon: Icons.delete,
                     )
-                  ]),
-                  endActionPane:
-                      ActionPane(motion: const ScrollMotion(), children: [
+                  ],
+                ),
+                endActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  children: [
                     SlidableAction(
                       onPressed: (context) {
                         ref
                             .watch(todoProvider.notifier)
-                            .completedTodo(todos[index].todoId);
+                            .completedTodo(activeTodos[index].todoId);
                       },
                       backgroundColor: Colors.green,
                       borderRadius: BorderRadius.circular(10),
                       icon: Icons.check_box_outline_blank,
                     )
-                  ]),
-                  child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 251, 219, 247),
-                          borderRadius: BorderRadius.circular(10)),
-                      child:
-                          ListTile(title: Text(activeTodos[index].content))));
+                  ],
+                ),
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 251, 219, 247),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    title: Text(activeTodos[index].content),
+                  ),
+                ),
+              );
             }
-            // }
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (content) => const AddTodo()));
+          Navigator.of(context).push(PageTransition(
+              type: PageTransitionType.bottomToTop,
+              duration: const Duration(milliseconds: 400),
+              reverseDuration: const Duration(milliseconds: 400),
+              child: const AddTodo()));
         },
         tooltip: 'Increment',
         foregroundColor: Colors.white,
