@@ -10,23 +10,27 @@ class AddTodo extends ConsumerWidget {
     TextEditingController todoController = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Add todo")),
-        body: Center(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: todoController,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
+      appBar: AppBar(title: const Text("Add todo")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: todoController,
+                decoration: const InputDecoration(border: OutlineInputBorder()),
+              ),
             ),
-          ),
-          TextButton(
-              onPressed: () {
-                ref.read(todoProvider.notifier).addTodo(todoController.text);
-                Navigator.pop(context);
-              },
-              child: const Text("Add todo")),
-        ])));
+            TextButton(
+                onPressed: () {
+                  ref.read(todoProvider.notifier).addTodo(todoController.text);
+                  Navigator.pop(context);
+                },
+                child: const Text("Add todo")),
+          ],
+        ),
+      ),
+    );
   }
 }

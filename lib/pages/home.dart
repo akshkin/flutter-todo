@@ -29,43 +29,50 @@ class MyHomePage extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
                 child: Center(
-                    child: Column(
-                  children: [
-                    const Text(
-                        "No active todos. Add new todo using the button below"),
-                    completedTodos.isNotEmpty
-                        ? TextButton(
-                            onPressed: () => Navigator.of(context).push(
+                  child: Column(
+                    children: [
+                      const Text(
+                          "No active todos. Add new todo using the button below"),
+                      completedTodos.isNotEmpty
+                          ? TextButton(
+                              onPressed: () => Navigator.of(context).push(
                                 PageTransition(
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 400),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 400),
-                                    child: const CompletedTodos())),
-                            child: const Text("Completed todos"))
-                        : Container()
-                  ],
-                )),
+                                  type: PageTransitionType.leftToRight,
+                                  duration: const Duration(milliseconds: 400),
+                                  reverseDuration:
+                                      const Duration(milliseconds: 400),
+                                  child: const CompletedTodos(),
+                                ),
+                              ),
+                              child: const Text("Completed todos"),
+                            )
+                          : Container()
+                    ],
+                  ),
+                ),
               );
             } else if (index == activeTodos.length) {
               if (completedTodos.isEmpty) {
                 return Container();
               } else {
                 return Center(
-                    child: TextButton(
-                        onPressed: () => Navigator.of(context).push(
-                            PageTransition(
-                                type: PageTransitionType.leftToRight,
-                                duration: const Duration(milliseconds: 400),
-                                reverseDuration:
-                                    const Duration(milliseconds: 400),
-                                child: const CompletedTodos())),
-                        child: const Text("Completed todos")));
+                  child: TextButton(
+                    onPressed: () => Navigator.of(context).push(
+                      PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: const Duration(milliseconds: 400),
+                          reverseDuration: const Duration(milliseconds: 400),
+                          child: const CompletedTodos()),
+                    ),
+                    child: const Text("Completed todos"),
+                  ),
+                );
               }
             } else {
               return Slidable(
-                  startActionPane:
-                      ActionPane(motion: const ScrollMotion(), children: [
+                startActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  children: [
                     SlidableAction(
                       onPressed: (context) {
                         ref
@@ -76,9 +83,11 @@ class MyHomePage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(10),
                       icon: Icons.delete,
                     )
-                  ]),
-                  endActionPane:
-                      ActionPane(motion: const ScrollMotion(), children: [
+                  ],
+                ),
+                endActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  children: [
                     SlidableAction(
                       onPressed: (context) {
                         ref
@@ -89,16 +98,20 @@ class MyHomePage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(10),
                       icon: Icons.check_box_outline_blank,
                     )
-                  ]),
-                  child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 251, 219, 247),
-                          borderRadius: BorderRadius.circular(10)),
-                      child:
-                          ListTile(title: Text(activeTodos[index].content))));
+                  ],
+                ),
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 251, 219, 247),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    title: Text(activeTodos[index].content),
+                  ),
+                ),
+              );
             }
-            // }
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
