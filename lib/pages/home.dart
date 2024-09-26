@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:todo/components/todo.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/pages/add.dart';
 import 'package:todo/pages/completed.dart';
@@ -100,16 +101,7 @@ class MyHomePage extends ConsumerWidget {
                     )
                   ],
                 ),
-                child: Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 251, 219, 247),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListTile(
-                    title: Text(activeTodos[index].content),
-                  ),
-                ),
+                child: TodoItem(index: index, todos: activeTodos),
               );
             }
           }),
