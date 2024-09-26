@@ -16,32 +16,28 @@ class TodoItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      elevation: 2,
-      child: ListTile(
-        style: ListTileStyle.list,
-        tileColor: index.isEven
-            ? const Color.fromARGB(255, 227, 236, 238)
-            : const Color.fromARGB(255, 251, 230, 237),
-        title: Text(
-          todos[index].content,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        subtitle: Text(
-          DateFormat.yMEd().format(todos[index].date),
-        ),
-        subtitleTextStyle: const TextStyle(
-            fontSize: 12, color: Color.fromARGB(255, 125, 123, 123)),
-        trailing: IconButton(
-          onPressed: () {
-            ref.watch(todoProvider.notifier).completedTodo(todos[index].todoId);
-          },
-          icon: todos[index].completed
-              ? const Icon(Icons.check_box)
-              : const Icon(Icons.check_box_outline_blank),
-        ),
+    return ListTile(
+      style: ListTileStyle.list,
+      tileColor: index.isEven
+          ? const Color.fromARGB(255, 227, 236, 238)
+          : const Color.fromARGB(255, 252, 225, 234),
+      title: Text(
+        todos[index].content,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: Text(
+        DateFormat.yMEd().format(todos[index].date),
+      ),
+      subtitleTextStyle: const TextStyle(
+          fontSize: 12, color: Color.fromARGB(255, 125, 123, 123)),
+      trailing: IconButton(
+        onPressed: () {
+          ref.watch(todoProvider.notifier).completedTodo(todos[index].todoId);
+        },
+        icon: todos[index].completed
+            ? const Icon(Icons.check_box)
+            : const Icon(Icons.check_box_outline_blank),
       ),
     );
   }
