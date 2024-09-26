@@ -18,8 +18,12 @@ class TodoItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       margin: const EdgeInsets.all(8),
-      elevation: 10,
+      elevation: 2,
       child: ListTile(
+        style: ListTileStyle.list,
+        tileColor: index.isEven
+            ? const Color.fromARGB(255, 227, 236, 238)
+            : const Color.fromARGB(255, 251, 230, 237),
         title: Text(
           todos[index].content,
           maxLines: 1,
@@ -29,9 +33,7 @@ class TodoItem extends ConsumerWidget {
           DateFormat.yMEd().format(todos[index].date),
         ),
         subtitleTextStyle: const TextStyle(
-          fontSize: 12,
-          color: Color.fromARGB(255, 125, 123, 123),
-        ),
+            fontSize: 12, color: Color.fromARGB(255, 125, 123, 123)),
         trailing: IconButton(
           onPressed: () {
             ref.watch(todoProvider.notifier).completedTodo(todos[index].todoId);

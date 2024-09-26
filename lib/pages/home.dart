@@ -107,14 +107,16 @@ class MyHomePage extends ConsumerWidget {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(PageTransition(
-              type: PageTransitionType.bottomToTop,
-              duration: const Duration(milliseconds: 400),
-              reverseDuration: const Duration(milliseconds: 400),
-              child: const AddTodo()));
+          Navigator.of(context).push(
+            PageTransition(
+                type: PageTransitionType.bottomToTop,
+                duration: const Duration(milliseconds: 400),
+                reverseDuration: const Duration(milliseconds: 400),
+                child: const AddTodo()),
+          );
         },
         tooltip: 'Increment',
-        foregroundColor: Colors.white,
+        // foregroundColor: const Color.fromARGB(255, 20, 4, 27),
         child: const Icon(Icons.add),
       ),
     );
