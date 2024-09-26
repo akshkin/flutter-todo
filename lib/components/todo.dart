@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:todo/models/todo.dart';
+import 'package:todo/providers/todo.provider.dart';
 
-class TodoItem extends StatelessWidget {
+class TodoItem extends ConsumerWidget {
   final int index;
   final List<Todo> todos;
 
@@ -12,16 +14,11 @@ class TodoItem extends StatelessWidget {
     required this.todos,
   });
 
-  // DateFormat.yMEd().add_jms().format(DateTime.now())
-
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
       margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      elevation: 10,
       child: ListTile(
         title: Text(
           todos[index].content,
@@ -36,7 +33,13 @@ class TodoItem extends StatelessWidget {
           color: Color.fromARGB(255, 125, 123, 123),
         ),
         trailing: IconButton(
-            onPressed: () {}, icon: const Icon(Icons.check_box_outline_blank)),
+          onPressed: () {
+            ref.watch(todoProvider.notifier).completedTodo(todos[index].todoId);
+          },
+          icon: todos[index].completed
+              ? const Icon(Icons.check_box)
+              : const Icon(Icons.check_box_outline_blank),
+        ),
       ),
     );
   }

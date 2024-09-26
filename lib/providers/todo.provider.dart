@@ -27,7 +27,7 @@ class TodoListNotifier extends StateNotifier<List<Todo>> {
           Todo(
             todoId: todo.todoId,
             content: todo.content,
-            completed: true,
+            completed: !todo.completed,
             date: todo.date,
             completedDate: DateTime.now(),
           )
