@@ -12,9 +12,11 @@ class TodoListNotifier extends StateNotifier<List<Todo>> {
     state = [
       ...state,
       Todo(
-          todoId: state.isEmpty ? 0 : state[state.length - 1].todoId + 1,
-          content: content,
-          completed: false)
+        todoId: state.isEmpty ? 0 : state[state.length - 1].todoId + 1,
+        content: content,
+        completed: false,
+        date: DateTime.now(),
+      )
     ];
   }
 
@@ -22,7 +24,13 @@ class TodoListNotifier extends StateNotifier<List<Todo>> {
     state = [
       for (final todo in state)
         if (todo.todoId == id)
-          Todo(todoId: todo.todoId, content: todo.content, completed: true)
+          Todo(
+            todoId: todo.todoId,
+            content: todo.content,
+            completed: !todo.completed,
+            date: todo.date,
+            completedDate: DateTime.now(),
+          )
         else
           todo
     ];
