@@ -58,13 +58,13 @@ class Metrics extends ConsumerWidget {
                   sections: [
                     PieChartSectionData(
                       value: completedTodos.length.toDouble(),
-                      color: const Color.fromARGB(255, 121, 234, 125),
+                      color: ColorPallete.greenDark,
                       title:
                           "${(completedTodos.length * 100 / todos.length).toStringAsFixed(2)}%",
                     ),
                     PieChartSectionData(
                       value: activeTodos.length.toDouble(),
-                      color: const Color.fromARGB(255, 95, 193, 225),
+                      color: ColorPallete.blueDark,
                       title:
                           "${(activeTodos.length * 100 / todos.length).toStringAsFixed(2)}%",
                     ),
