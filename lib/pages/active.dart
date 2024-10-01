@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo/components/todo.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/providers/todo.provider.dart';
+import 'package:todo/theme/colors.dart';
 
 class ActiveTodos extends ConsumerWidget {
   const ActiveTodos({super.key});
@@ -44,7 +45,7 @@ class ActiveTodos extends ConsumerWidget {
                           .watch(todoProvider.notifier)
                           .deleteTodo(activeTodos[index].todoId);
                     },
-                    backgroundColor: Colors.red,
+                    backgroundColor: ColorPallete.red,
                     borderRadius: BorderRadius.circular(10),
                     icon: Icons.delete,
                   )
@@ -59,7 +60,7 @@ class ActiveTodos extends ConsumerWidget {
                           .watch(todoProvider.notifier)
                           .completedTodo(activeTodos[index].todoId);
                     },
-                    backgroundColor: Colors.green,
+                    backgroundColor: ColorPallete.greenDark,
                     borderRadius: BorderRadius.circular(10),
                     icon: Icons.check_box_outline_blank,
                   )

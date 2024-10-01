@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/providers/todo.provider.dart';
+import 'package:todo/theme/colors.dart';
 
 class TodoItem extends ConsumerWidget {
   final int index;
@@ -18,9 +19,10 @@ class TodoItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       style: ListTileStyle.list,
-      tileColor: index.isEven
-          ? const Color.fromARGB(255, 227, 236, 238)
-          : const Color.fromARGB(255, 252, 225, 234),
+      tileColor:
+          index.isEven ? ColorPallete.blueLight : ColorPallete.greenLight,
+      // ? const Color.fromARGB(255, 208, 234, 250)
+      // : const Color.fromARGB(255, 230, 250, 231),
       title: Text(
         todos[index].content,
         maxLines: 1,
@@ -30,7 +32,9 @@ class TodoItem extends ConsumerWidget {
         DateFormat.yMEd().format(todos[index].date),
       ),
       subtitleTextStyle: const TextStyle(
-          fontSize: 12, color: Color.fromARGB(255, 125, 123, 123)),
+        fontSize: 12,
+        color: ColorPallete.textGray,
+      ),
       trailing: IconButton(
         onPressed: () {
           ref.watch(todoProvider.notifier).completedTodo(todos[index].todoId);

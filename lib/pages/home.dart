@@ -4,6 +4,7 @@ import 'package:todo/pages/active.dart';
 import 'package:todo/pages/add.dart';
 import 'package:todo/pages/completed.dart';
 import 'package:todo/pages/metrics.dart';
+import 'package:todo/theme/colors.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -15,9 +16,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = [
-    ActiveTodos(),
-    CompletedTodos(),
+  final List<Widget> _pages = [
+    const ActiveTodos(),
+    const CompletedTodos(),
     Metrics()
   ];
 
@@ -44,13 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.incomplete_circle),
             label: 'Active',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.incomplete_circle),
-              label: 'Completed',
-              activeIcon: Icon(Icons.incomplete_circle_sharp)),
+            icon: Icon(Icons.check),
+            label: 'Completed',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
             label: 'Metrics',
@@ -62,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           })
         },
         currentIndex: _selectedIndex,
+        selectedItemColor: ColorPallete.blueDark,
       ),
     );
   }
