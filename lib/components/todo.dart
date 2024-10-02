@@ -19,10 +19,10 @@ class TodoItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       style: ListTileStyle.list,
-      tileColor:
-          index.isEven ? ColorPallete.blueLight : ColorPallete.greenLight,
-      // ? const Color.fromARGB(255, 208, 234, 250)
-      // : const Color.fromARGB(255, 230, 250, 231),
+      // tileColor: index.isEven
+      //     ? const Color.fromARGB(255, 19, 53, 65)
+      //     : const Color.fromARGB(255, 17, 69, 18),
+
       title: Text(
         todos[index].content,
         maxLines: 1,

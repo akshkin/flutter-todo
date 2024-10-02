@@ -8,4 +8,6 @@ class ColorPallete {
   static const textDark = Colors.black;
   static const textGray = Color.fromARGB(255, 125, 123, 123);
   static const red = Color.fromARGB(255, 239, 90, 80);
+  static const transparent = Colors.transparent;
+  static const white = Colors.white;
 }

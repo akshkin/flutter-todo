@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/providers/todo.provider.dart';
+import 'package:todo/theme/colors.dart';
 
 class AddTodo extends ConsumerWidget {
   const AddTodo({super.key});
@@ -19,15 +20,40 @@ class AddTodo extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: todoController,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorPallete.blueDark,
+                    ),
+                  ),
+                ),
               ),
             ),
-            TextButton(
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorPallete.blueDark,
+              ),
+              child: ElevatedButton(
                 onPressed: () {
                   ref.read(todoProvider.notifier).addTodo(todoController.text);
                   Navigator.pop(context);
                 },
-                child: const Text("Add todo")),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorPallete.transparent,
+                    shadowColor: ColorPallete.transparent
+                    // foregroundColor: Colors.white,
+                    ),
+                child: const Text(
+                  "Add todo",
+                  style: TextStyle(
+                    color: ColorPallete.white,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
