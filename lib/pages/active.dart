@@ -19,58 +19,56 @@ class ActiveTodos extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Active Todos'),
       ),
-      body: ListView.builder(
-        itemCount: activeTodos.length,
-        itemBuilder: (context, index) {
-          if (activeTodos.isEmpty) {
-            return const Padding(
-              padding: EdgeInsets.fromLTRB(8, 30, 8, 0),
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                        "No active todos. Add new todo using the button below"),
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return Slidable(
-              startActionPane: ActionPane(
-                motion: const ScrollMotion(),
+      body: activeTodos.isEmpty
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      ref
-                          .watch(todoProvider.notifier)
-                          .deleteTodo(activeTodos[index].todoId);
-                    },
-                    backgroundColor: ColorPallete.red,
-                    borderRadius: BorderRadius.circular(10),
-                    icon: Icons.delete,
-                  )
+                  Text("No active todos. Add new todo using the button below"),
                 ],
               ),
-              endActionPane: ActionPane(
-                motion: const ScrollMotion(),
-                children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      ref
-                          .watch(todoProvider.notifier)
-                          .completedTodo(activeTodos[index].todoId);
-                    },
-                    backgroundColor: ColorPallete.greenDark,
-                    borderRadius: BorderRadius.circular(10),
-                    icon: Icons.check_box_outline_blank,
-                  )
-                ],
-              ),
-              child: TodoItem(index: index, todos: activeTodos),
-            );
-          }
-        },
-      ),
+            )
+          : ListView.builder(
+              itemCount: activeTodos.length,
+              itemBuilder: (context, index) {
+                return Slidable(
+                  key: ValueKey(todos[index].todoId.toString()),
+                  startActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        key:
+                            ValueKey("${todos[index].todoId.toString()}delete"),
+                        onPressed: (context) {
+                          ref
+                              .watch(todoProvider.notifier)
+                              .deleteTodo(activeTodos[index].todoId);
+                        },
+                        backgroundColor: ColorPallete.red,
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icons.delete,
+                      )
+                    ],
+                  ),
+                  endActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          ref
+                              .watch(todoProvider.notifier)
+                              .completedTodo(activeTodos[index].todoId);
+                        },
+                        backgroundColor: ColorPallete.greenDark,
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icons.check_box_outline_blank,
+                      )
+                    ],
+                  ),
+                  child: TodoItem(index: index, todos: activeTodos),
+                );
+              },
+            ),
     );
   }
 }
